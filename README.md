@@ -35,7 +35,7 @@ This option will automatically set up a PostgreSQL database using the env.docker
 2. Add the PostgreSQL database information in the application-local.properties file.
 3. Build and run the project using the "local" Maven profile:
    ```sh
-   mvn clean install -Plocal
+   mvn clean install -Plocal -DskipTests
    mvn spring-boot:run -Plocal
    ```
 
