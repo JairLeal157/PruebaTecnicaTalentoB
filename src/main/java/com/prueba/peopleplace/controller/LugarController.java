@@ -43,7 +43,7 @@ public class LugarController {
                 @ApiResponse(responseCode = "200", description = "List of places by country"),
                 @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
             })
-    public ResponseEntity<List<LugarDTO>> getLugaresByPais(String pais) {
+    public ResponseEntity<List<LugarDTO>> getLugaresByPais(@PathVariable String pais) {
         return  ResponseEntity.status(201).body(lugarService.getLugaresByPais(pais));
     }
 }
