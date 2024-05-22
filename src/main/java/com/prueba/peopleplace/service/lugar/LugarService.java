@@ -41,17 +41,8 @@ public class LugarService implements ILugarService {
     public List<LugarDTO> getLugaresByPais(String pais) {
         Optional<List<Lugar>> lugaresOptional = lugarRepository.findAllByPais(pais);
         List<Lugar> lugares = lugaresOptional.orElse(null);
-        lugares = this.uniqueLugares(lugares);
         return lugarMapper.toDto(lugares);
     }
 
-    private List<Lugar> uniqueLugares(List<Lugar> lugares){
-        if(lugares == null) return null;
-        Map<String, Lugar> map = new HashMap<>();
-        for (Lugar lugar : lugares) {
-            map.put(lugar.getNombre()+lugar.getDepartamento_o_estado() , lugar);
-        }
-        return new ArrayList<>(map.values());
 
-    }
 }
