@@ -13,4 +13,6 @@ public interface LugarRepository extends JpaRepository<Lugar, Long> {
     Optional<List<Persona>> findAllPersonasByNombreLugar(String nombre);
 
     Optional<List<Lugar>> findAllByPais(String pais);
+
+    boolean existsByNombreAndPaisAndPersona(String nombre, String pais, Persona persona);
 }

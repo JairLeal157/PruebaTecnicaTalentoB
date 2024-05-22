@@ -6,11 +6,13 @@ import com.prueba.peopleplace.model.entity.Persona;
 import com.prueba.peopleplace.model.mapper.LugarMapper;
 import com.prueba.peopleplace.repository.LugarRepository;
 import com.prueba.peopleplace.repository.PersonaRepository;
+import com.prueba.peopleplace.util.error.exception.ConflictException;
+import com.prueba.peopleplace.util.error.exception.PersonNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+
 
 @Service
 @AllArgsConstructor
@@ -21,17 +23,35 @@ public class LugarService implements ILugarService {
     private final PersonaRepository personaRepository;
 
     @Override
-    public LugarDTO createLugar(LugarDTO lugarDTO) { // error por que el usuario no existe, o por que el lugar ya existe
+    public LugarDTO createLugar(LugarDTO lugarDTO) {
         Lugar lugar = lugarMapper.toEntity(lugarDTO);
         Optional<Persona> persona = personaRepository.findById(lugarDTO.getPersonaId());
-        lugar.setPersona(persona.orElse(null));
+        if(persona.isEmpty()) {
+            throw new PersonNotFoundException("Persona with id " + lugarDTO.getPersonaId() + " does not exist");
+        }
+        if (lugarRepository.existsByNombreAndPaisAndPersona(lugar.getNombre(), lugar.getPais(), persona.get())) {
+            throw new ConflictException("Lugar already exists for this persona");
+        }
+        lugar.setPersona(persona.get());
         lugar = lugarRepository.save(lugar);
         return lugarMapper.toDto(lugar);
     }
 
     @Override
     public List<LugarDTO> getLugaresByPais(String pais) {
-        Optional<List<Lugar>> lugares = lugarRepository.findAllByPais(pais);
-        return lugarMapper.toDto(lugares.orElse(null));
+        Optional<List<Lugar>> lugaresOptional = lugarRepository.findAllByPais(pais);
+        List<Lugar> lugares = lugaresOptional.orElse(null);
+        lugares = this.uniqueLugares(lugares);
+        return lugarMapper.toDto(lugares);
+    }
+
+    private List<Lugar> uniqueLugares(List<Lugar> lugares){
+        if(lugares == null) return null;
+        Map<String, Lugar> map = new HashMap<>();
+        for (Lugar lugar : lugares) {
+            map.put(lugar.getNombre()+lugar.getDepartamento_o_estado() , lugar);
+        }
+        return new ArrayList<>(map.values());
+
     }
 }
