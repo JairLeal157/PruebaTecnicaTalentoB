@@ -35,14 +35,14 @@ public class PersonaController {
     }
 
 
-    @GetMapping("/lugar/{nombre}")
+    @GetMapping("/lugar/{nombreLugar}")
     @Operation(summary = "search Personas who visited a Lugar",
             description = "Get a list of people who visited a place by name",
             responses = {
                 @ApiResponse(responseCode = "200", description = "List of Personas"),
                 @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
             })
-    public ResponseEntity<List<PersonaDTO>> getPersonasByLugarNombre(@PathVariable String nombre) {
-        return ResponseEntity.status(201).body(personaService.getPersonasByLugarNombre(nombre));
+    public ResponseEntity<List<PersonaDTO>> getPersonasByLugarNombre(@PathVariable String nombreLugar) {
+        return ResponseEntity.status(201).body(personaService.getPersonasByLugarNombre(nombreLugar));
     }
 }
