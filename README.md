@@ -4,7 +4,7 @@
 
 This project is a technical test for Talento B. The goal of the project is to create a REST API that manages places and people, including the ability to create people, create places, query people who have visited a specific place, and query places visited in a specific country.
 
-The project is deployed at the following link: https://pruebatecnicatalentob.onrender.com/. Please note that the project may take approximately 50 seconds to start correctly after attempting to use the URL.
+The project is deployed at the following link: https://pruebatecnicatalentob.onrender.com/api/v1. Please note that the project may take approximately 50 seconds to start correctly after attempting to use the URL.
 ## Running the Project Locally
 
 There are two ways to run the project locally:
