@@ -1,11 +1,11 @@
-CREATE TABLE Persona (
+CREATE TABLE IF NOT EXISTS Persona (
     id_persona SERIAL PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     edad INT NOT NULL,
     ocupacion VARCHAR(100)
 );
 
-CREATE TABLE Lugar (
+CREATE TABLE IF NOT EXISTS Lugar (
     id_lugar SERIAL PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     departamento_o_estado VARCHAR(100),

@@ -68,6 +68,29 @@
 		</dependency>
 	</dependencies>
 
+	<profiles>
+		<profile>
+			<id>docker</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<build.profile.id>docker</build.profile.id>
+				<profileActive>docker</profileActive>
+			</properties>
+		</profile>
+		<profile>
+			<id>local</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<build.profile.id>local</build.profile.id>
+				<profileActive>local</profileActive>
+			</properties>
+		</profile>
+	</profiles>
+
 	<build>
 		<plugins>
 

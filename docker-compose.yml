@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:latest
+    container_name: postgres_container
+    env_file:
+      - .env.docker
+    volumes:
+      - data-db:/var/lib/postgresql/data
+      - ./sql/schema.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+  springboot-app:
+    env_file:
+      - .env.docker
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - MAVEN_PROFILE=docker
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+volumes:
+  data-db:
