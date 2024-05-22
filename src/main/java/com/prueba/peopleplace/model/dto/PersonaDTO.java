@@ -15,7 +15,7 @@ public class PersonaDTO {
 
     private Long id_persona;
 
-    @NotBlank()
+    @NotBlank
     @Size(max = 100)
     private String nombre;
 

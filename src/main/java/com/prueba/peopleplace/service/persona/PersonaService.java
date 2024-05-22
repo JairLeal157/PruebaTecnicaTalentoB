@@ -23,6 +23,12 @@ public class PersonaService implements IPersonaService {
 
     @Override
     public PersonaDTO createPersona(PersonaDTO personaDTO) { // Error, persona ya está en la base de datos
+
+        Optional<Persona> personaOptional = personaRepository.findById(personaDTO.getId_persona());
+        if(personaOptional.isPresent()){
+
+
+        }
         Persona persona = personaMapper.toEntity(personaDTO);
         persona = personaRepository.save(persona);
         return personaMapper.toDto(persona);
